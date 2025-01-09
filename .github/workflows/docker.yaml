@@ -39,5 +39,5 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
-          file: Dockerfile
+          file: Dockerfile.20.04
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/nvim:20.04
