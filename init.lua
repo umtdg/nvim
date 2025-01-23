@@ -156,6 +156,13 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Default indentation for new files - vim-sleuth handles existing files
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+vim.opt.autoindent = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
