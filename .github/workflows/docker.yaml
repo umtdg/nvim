@@ -41,3 +41,12 @@ jobs:
           push: true
           file: Dockerfile.20.04
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/nvim:20.04
+
+      - name: Build and push Ubuntu 22.04
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          file: Dockerfile.22.04
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nvim:22.04
