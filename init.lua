@@ -743,7 +743,11 @@ require('lazy').setup({
       },
       formatters = {
         black = {
-          prepend_args = { '--preview' },
+          prepend_args = {
+            '--preview',
+            '--enable-unstable-feature',
+            'string_processing',
+          },
         },
       },
     },
