@@ -1,12 +1,11 @@
--- alpha-nvim
--- https://github.com/goolord/alpha-nvim
+-- https://github.com/nvimdev/dashboard-nvim
 
 return {
-  'goolord/alpha-nvim',
+  'nvimdev/dashboard-nvim',
+  event = 'VimEnter',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
-    local theme = require 'alpha.themes.dashboard'
-    theme.section.header.val = {
+    local header = {
       '=====================================================================',
       '=====================================================================',
       '========                                    .-----.          ========',
@@ -26,7 +25,28 @@ return {
       '=====================================================================',
       '=====================================================================',
     }
-    require('alpha').setup(theme.config)
+
+    local dashboard = require 'dashboard'
+    dashboard.setup {
+      theme = 'hyper',
+      shortcut_type = 'letter',
+      config = {
+        header = header,
+        week_header = {
+          enable = false,
+        },
+        packages = {
+          enable = true,
+        },
+        project = {
+          enable = true,
+          limit = 10,
+        },
+        mru = {
+          enable = true,
+          limit = 10,
+        },
+      },
+    }
   end,
-  event = 'VimEnter',
 }
