@@ -980,6 +980,7 @@ require('lazy').setup({
   require 'custom.plugins.intro',
   require 'custom.plugins.bufferline',
   require 'custom.plugins.persistence',
+  require 'custom.plugins.avante',
   -- { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
