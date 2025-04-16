@@ -741,6 +741,7 @@ require('lazy').setup({
         python = { 'isort', 'black' },
         c = { 'clang-format' },
         cpp = { 'clang-format' },
+        html = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
