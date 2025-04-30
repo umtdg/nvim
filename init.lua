@@ -643,6 +643,11 @@ require('lazy').setup({
             '--completion-style=detailed',
           },
         },
+        zls = {
+          cmd = {
+            '/usr/bin/zls',
+          },
+        },
         -- gopls = {},
         pyright = {},
         -- rust_analyzer = {},
