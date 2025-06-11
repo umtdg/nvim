@@ -756,7 +756,7 @@ require('lazy').setup({
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
-        automatic_enable = {},
+        -- automatic_enable = {},
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -885,6 +885,21 @@ require('lazy').setup({
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
+
+        -- disable arrows
+        ['<Up>'] = {},
+        ['<Down>'] = {},
+
+        -- use <C-h>/<C-l> instead of <Tab>/<S-tab> for
+        -- moving to right/left of snippet expansion
+        ['<Tab>'] = {},
+        ['<S-tab>'] = {},
+        ['<C-h>'] = { 'snippet_backward' },
+        ['<C-l>'] = { 'snippet_forward' },
+
+        -- scroll documentation using <C-u>/<C-d>
+        ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
