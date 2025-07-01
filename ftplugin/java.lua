@@ -61,6 +61,14 @@ local config = {
           { name = 'JavaSE-24', path = '/usr/lib/jvm/java-24-openjdk' },
         },
       },
+
+      format = {
+        enabled = true,
+        settings = {
+          url = root_dir .. '/style.xml',
+          profile = 'Custom',
+        },
+      },
     },
   },
   init_options = {
