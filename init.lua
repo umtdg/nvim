@@ -809,6 +809,7 @@ require('lazy').setup({
         cpp = { 'clang-format' },
         html = { 'prettier' },
         java = { 'jdtls' },
+        json = { 'jq' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
