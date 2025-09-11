@@ -1060,7 +1060,6 @@ require('lazy').setup({
   require 'custom.plugins.intro',
   require 'custom.plugins.bufferline',
   require 'custom.plugins.persistence',
-  require 'custom.plugins.avante',
   require 'custom.plugins.folding',
   require 'custom.plugins.jdtls',
   -- { import = 'custom.plugins' },
