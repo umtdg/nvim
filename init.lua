@@ -701,12 +701,12 @@ require('lazy').setup({
         pyright = {},
         rust_analyzer = {
           settings = {
-            ['rust-analyzer'] = {
-              checkOnSave = true,
-              check = {
-                command = 'clippy',
-              },
+            checkOnSave = true,
+            check = {
+              command = 'clippy',
             },
+            installCargo = false,
+            installRustc = false,
           },
         },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
