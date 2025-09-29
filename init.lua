@@ -492,7 +492,6 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
       { 'mason-org/mason.nvim', opts = {} },
       'mason-org/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
@@ -700,13 +699,14 @@ require('lazy').setup({
         -- gopls = {},
         pyright = {},
         rust_analyzer = {
-          settings = {
-            checkOnSave = true,
-            check = {
-              command = 'clippy',
+          check = {
+            command = 'clippy',
+          },
+          files = {
+            exclude = {
+              '~/.rustup',
+              '~/.cargo',
             },
-            installCargo = false,
-            installRustc = false,
           },
         },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -751,15 +751,14 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       for server_name, server_settings in pairs(servers) do
         require('lspconfig')[server_name].setup { settings = server_settings }
       end
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
+        ensure_installed = ensure_installed,
+        automatic_enable = false,
       }
     end,
   },
