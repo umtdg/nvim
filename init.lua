@@ -1061,6 +1061,7 @@ require('lazy').setup({
   require 'custom.plugins.persistence',
   require 'custom.plugins.folding',
   require 'custom.plugins.jdtls',
+  require 'custom.plugins.sonarlint',
   -- { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
