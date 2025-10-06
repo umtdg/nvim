@@ -6,7 +6,7 @@ return {
     dependencies = {
       'neovim/nvim-lspconfig',
 
-      'llewis6991/gitsigns.nvim',
+      'lewis6991/gitsigns.nvim',
     },
     config = function()
       require('sonarlint').setup {
