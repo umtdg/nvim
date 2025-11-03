@@ -173,6 +173,11 @@ vim.o.softtabstop = 4
 vim.o.expandtab = true
 vim.o.autoindent = true
 
+-- Neovide specific configuration, import only when in Neovide
+if vim.g.neovide then
+  require 'custom.neovide'
+end
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
