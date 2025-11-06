@@ -1,21 +1,16 @@
-local change_scale_factor = function(delta)
-  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
-end
-
+local scale_factor = 1.25
 local increase_scale_factor = function ()
-  -- +25%
-  change_scale_factor(1.25)
+  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * scale_factor
 end
 
 local decrease_scale_factor = function ()
-  -- -25%
-  change_scale_factor(1 / 1.25)
+  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor  / scale_factor
 end
 
 -- Options
 vim.o.guifont = 'MesloLGS NF:h12'
 
-decrease_scale_factor()
+vim.g.neovide_scale_factor = 1 / scale_factor
 
 vim.g.neovide_hide_mouse_when_typing = true
 
