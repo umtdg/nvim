@@ -760,8 +760,11 @@ require('lazy').setup({
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      for server_name, server_settings in pairs(servers) do
-        require('lspconfig')[server_name].setup { settings = server_settings }
+      for name, config in pairs(servers) do
+        config = config or {}
+        config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+
+        vim.lsp.config(name, config)
       end
 
       require('mason-lspconfig').setup {
