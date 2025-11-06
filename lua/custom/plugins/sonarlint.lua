@@ -7,8 +7,12 @@ return {
       'neovim/nvim-lspconfig',
 
       'lewis6991/gitsigns.nvim',
+
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
     },
     config = function()
+      require('mason-tool-installer').setup { ensure_installed = { 'sonarlint-language-server' } }
+
       require('sonarlint').setup {
         server = {
           cmd = {
