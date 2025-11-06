@@ -769,7 +769,11 @@ require('lazy').setup({
 
       require('mason-lspconfig').setup {
         ensure_installed = {},
-        automatic_enable = false,
+        automatic_enable = {
+          exclude = {
+            'jdtls'
+          },
+        },
       }
     end,
   },
