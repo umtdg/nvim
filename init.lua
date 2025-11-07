@@ -771,7 +771,7 @@ require('lazy').setup({
         ensure_installed = {},
         automatic_enable = {
           exclude = {
-            'jdtls'
+            'jdtls',
           },
         },
       }
