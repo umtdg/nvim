@@ -15,9 +15,32 @@ end
 local data_path = vim.fn.stdpath 'data'
 
 -- jdtls paths
-local jdtls_path = data_path .. '/mason/packages/jdtls'
+local jdtls_path = vim.fn.expand '$MASON/packages/jdtls'
 local jdtls_jar = vim.fn.glob(jdtls_path .. '/plugins/org.eclipse.equinox.launcher_*.jar')
 local ws_dir = data_path .. '/jdtls-workspace/' .. vim.fn.fnamemodify(root_dir, ':p:h')
+
+-- java-debug-adapter
+local java_debug_adapter_path = vim.fn.expand '$MASON/packages/java-debug-adapter/extension/server'
+local java_debug_adapter_jar = vim.fn.glob(java_debug_adapter_path .. '/com.microsoft.java.debug.plugin-*.jar', true, false)
+
+local bundles = {
+  java_debug_adapter_jar,
+}
+
+-- java-test
+local java_test_path = vim.fn.expand '$MASON/packages/java-test/extension/server'
+local java_test_jars = vim.fn.split(vim.fn.glob(java_test_path .. '/*.jar'), '\n')
+local java_test_jars_exclude = {
+  'com.microsoft.java.test.runner-jar-with-dependencies.jar',
+  'jacocoagent.jar',
+}
+
+for _, java_test_jar in ipairs(java_test_jars) do
+  local fname = vim.fn.fnamemodify(java_test_jar, ':t')
+  if not vim.tbl_contains(java_test_jars_exclude, fname) then
+    table.insert(bundles, java_test_jar)
+  end
+end
 
 local config = {
   cmd = {
@@ -70,30 +93,8 @@ local config = {
     },
   },
   init_options = {
-    bundles = {},
+    bundles = bundles,
   },
-}
-
--- configuration for debugging
-local bundles = {
-  vim.fn.glob(data_path .. '/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar'),
-}
-
-local java_test_bundles = vim.fn.glob(data_path .. '/mason/packages/java-test/extension/server/*.jar', false, true)
-local java_test_bundles_exclude = {
-  'com.microsoft.java.test.runner-jar-with-dependencies.jar',
-  'jacocoagent.jar',
-}
-
-for _, java_test_jar in ipairs(java_test_bundles) do
-  local fname = vim.fn.fnamemodify(java_test_jar, ':t')
-  if not vim.tbl_contains(java_test_bundles_exclude, fname) then
-    table.insert(bundles, java_test_jar)
-  end
-end
-
-config.init_options = {
-  bundles = bundles,
 }
 
 jdtls.start_or_attach(config)
