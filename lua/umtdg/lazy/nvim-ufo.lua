@@ -1,8 +1,6 @@
--- https://github.com/kevinhwang91/nvim-ufo
-
+---@type LazyPluginSpec
 return {
   'kevinhwang91/nvim-ufo',
-  version = '*',
   dependencies = { 'kevinhwang91/promise-async' },
   config = function()
     vim.o.foldcolumn = '1'

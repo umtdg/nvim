@@ -1,5 +1,4 @@
--- https://github.com/nvimdev/dashboard-nvim
-
+---@type LazyPluginSpec
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
