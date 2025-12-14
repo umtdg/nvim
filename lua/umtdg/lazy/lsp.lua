@@ -81,56 +81,101 @@ return {
       lineFoldingOnly = true,
     }
 
-    ---@type table<string, vim.lsp.Config>
+    ---@class LspConfig
+    ---@field enabled? boolean
+    ---@field use_mason? boolean
+    ---@field config? vim.lsp.Config
+    ---
+    ---@type table<string, LspConfig>
     local servers = {
       lua_ls = {
-        settings = {
-          Lua = { completion = { callSnippet = 'Replace' } },
-        },
-      },
-      clangd = {
-        cmd = {
-          'clangd',
-          '--pretty',
-          '--background-index',
-          '--completion-style=detailed',
-        },
-      },
-      zls = {
-        settings = {
-          zls = {
-            enable_snippets = true,
-            warn_style = true,
+        use_mason = true,
+        config = {
+          settings = {
+            Lua = { completion = { callSnippet = 'Replace' } },
           },
         },
       },
-      pyright = {},
+      clangd = {
+        use_mason = false,
+        config = {
+          cmd = {
+            'clangd',
+            '--pretty',
+            '--background-index',
+            '--completion-style=detailed',
+            '--compile-commands-dir=build',
+          },
+        },
+      },
+      zls = {
+        config = {
+          settings = {
+            zls = {
+              enable_snippets = true,
+              warn_style = true,
+            },
+          },
+        },
+      },
+      pyright = {
+        use_mason = false,
+      },
       rust_analyzer = {
-        check = { command = 'clippy' },
-        files = {
-          exclude = {
-            '~/.rustup',
-            '~/.cargo',
+        config = {
+          check = { command = 'clippy' },
+          files = {
+            exclude = {
+              '~/.rustup',
+              '~/.cargo',
+            },
           },
         },
       },
     }
 
-    local ensure_installed = { 'stylua', 'black', 'isort', 'clang-format' }
-    ensure_installed = vim.tbl_deep_extend('force', ensure_installed, vim.tbl_keys(servers or {}))
-    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
+    --- Used by mason-tool-installer to make sure each of them are installed
+    local ensure_installed = { 'stylua' }
+    --- List of LSPs to exclude from mason-lspconfig
+    local mason_lspconfig_exclude = { 'jdtls' }
     for name, config in pairs(servers) do
-      config = config or {}
-      config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+      local enabled = config.enabled ~= false
+      local use_mason = config.use_mason ~= false
 
-      vim.lsp.config(name, config)
+      --- If LSP is not enabled, do not even bother doing anything with it
+      if not enabled then
+        goto continue
+      end
+
+      local lspconfig = config.config or {}
+      lspconfig.capabilities = vim.tbl_deep_extend('force', {}, capabilities, lspconfig.capabilities or {})
+
+      vim.lsp.config(name, lspconfig)
+
+      --- If we are using mason, make sure we have it installed via ensure_installed.
+      ---
+      --- Otherwise, manually enable and add to mason_lspconfig_exclude to prevent
+      --- mason-lspconfig from enabling it. This will allow us to use system-wide
+      --- installation of specific LSPs instead of relying on it to be installed via Mason.
+      ---
+      --- Without this, for example, if clangd is not installed via Mason, but available in path
+      --- it won't be enabled.
+      if use_mason then
+        table.insert(ensure_installed, name)
+      else
+        vim.lsp.enable(name, true)
+        table.insert(mason_lspconfig_exclude, name)
+      end
+
+      ::continue::
     end
+
+    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
       ensure_installed = {},
       automatic_enable = {
-        exclude = { 'jdtls' },
+        exclude = mason_lspconfig_exclude,
       },
     }
   end,
