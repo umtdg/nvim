@@ -132,6 +132,9 @@ return {
           },
         },
       },
+      nil_ls = {
+        use_mason = false,
+      },
     }
 
     --- Used by mason-tool-installer to make sure each of them are installed
