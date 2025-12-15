@@ -11,6 +11,7 @@ return {
       c = { 'clang-format' },
       cpp = { 'clang-format' },
       java = { 'jdtls' },
+      nix = { 'nixfmt' },
     },
     formatters = {
       black = {
