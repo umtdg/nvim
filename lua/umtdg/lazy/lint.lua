@@ -7,6 +7,7 @@ return { -- Linting
     lint.linters_by_ft = {
       markdown = { 'markdownlint' },
       python = { 'flake8' },
+      rust = { 'clippy' },
     }
 
     -- To allow other plugins to add linters to require('lint').linters_by_ft,
