@@ -122,12 +122,16 @@ return {
         use_mason = false,
       },
       rust_analyzer = {
+        use_mason = false,
         config = {
-          check = { command = 'clippy' },
-          files = {
-            exclude = {
-              '~/.rustup',
-              '~/.cargo',
+          settings = {
+            ['rust-analyzer'] = {
+              files = {
+                exclude = {
+                  '~/.rustup',
+                  '~/.cargo',
+                },
+              },
             },
           },
         },
