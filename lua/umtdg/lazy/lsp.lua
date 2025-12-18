@@ -142,7 +142,7 @@ return {
     }
 
     --- Used by mason-tool-installer to make sure each of them are installed
-    local ensure_installed = { 'stylua' }
+    local ensure_installed = { 'stylua', 'markdownlint' }
     --- List of LSPs to exclude from mason-lspconfig
     local mason_lspconfig_exclude = { 'jdtls' }
     for name, config in pairs(servers) do
