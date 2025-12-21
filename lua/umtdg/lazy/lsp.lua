@@ -141,6 +141,14 @@ return {
       },
     }
 
+    local project_lsp_file = vim.fn.getcwd(0, 0) .. '/.nvim/lsp.lua'
+    if vim.fn.filereadable(project_lsp_file) then
+      local ok, servers_override = pcall(dofile, project_lsp_file)
+      if ok and type(servers_override) == 'table' then
+        servers = vim.tbl_deep_extend('force', servers, servers_override or {})
+      end
+    end
+
     --- Used by mason-tool-installer to make sure each of them are installed
     local ensure_installed = { 'stylua', 'markdownlint' }
     --- List of LSPs to exclude from mason-lspconfig
