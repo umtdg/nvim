@@ -12,6 +12,8 @@ return {
       cpp = { 'clang-format' },
       java = { 'jdtls' },
       nix = { 'nixfmt' },
+      javascript = { 'prettierd', 'prettier' },
+      typescript = { 'prettierd', 'prettier' },
     },
     formatters = {
       black = {
