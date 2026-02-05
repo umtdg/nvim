@@ -52,5 +52,15 @@ return {
       ':BufferLineCloseOthers<CR>',
       desc = '[B]uffers: [C]lose [O]thers',
     },
+    {
+      '<leader>bh',
+      ':BufferLineMovePrev<CR>',
+      desc = '[B]uffers: Move Previous',
+    },
+    {
+      '<leader>bl',
+      ':BufferLineMoveNext<CR>',
+      desc = '[B]uffers: Move Next',
+    },
   },
 }
