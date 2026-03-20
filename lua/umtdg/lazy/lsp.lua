@@ -118,7 +118,7 @@ return {
           },
         },
       },
-      pyright = {
+      basedpyright = {
         use_mason = false,
       },
       rust_analyzer = {
