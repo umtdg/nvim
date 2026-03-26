@@ -13,12 +13,10 @@ return {
     ---@type TSModule
     highlight = {
       enable = true,
-      additional_vim_regex_highlighting = { 'rust' },
     },
     ---@type TSModule
     indent = {
       enable = true,
-      disable = { 'rust' },
     },
   },
 }

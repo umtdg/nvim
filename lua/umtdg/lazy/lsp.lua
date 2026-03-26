@@ -121,21 +121,6 @@ return {
       basedpyright = {
         use_mason = false,
       },
-      rust_analyzer = {
-        use_mason = false,
-        config = {
-          settings = {
-            ['rust-analyzer'] = {
-              files = {
-                exclude = {
-                  '~/.rustup',
-                  '~/.cargo',
-                },
-              },
-            },
-          },
-        },
-      },
       nil_ls = {
         use_mason = false,
       },
