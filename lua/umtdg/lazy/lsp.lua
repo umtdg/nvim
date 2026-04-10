@@ -18,7 +18,7 @@ return {
         end
 
         ---@param client vim.lsp.Client?
-        ---@param method vim.lsp.protocol.Method
+        ---@param method vim.lsp.protocol.Method.ClientToServer | vim.lsp.protocol.Method.Registration
         ---@param bufnr? integer
         local function client_supports_method(client, method, bufnr)
           return client and client:supports_method(method, bufnr)

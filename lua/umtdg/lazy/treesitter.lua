@@ -2,21 +2,25 @@
 ---@diagnostic disable: missing-fields
 return {
   'nvim-treesitter/nvim-treesitter',
-  branch = 'master',
+  branch = 'main',
   build = ':TSUpdate',
-  main = 'nvim-treesitter.configs',
-  ---@module 'nvim-treesitter'
-  ---@type TSConfig
-  opts = {
-    ensure_installed = { 'bash', 'lua', 'vim' },
-    auto_install = true,
-    ---@type TSModule
-    highlight = {
-      enable = true,
-    },
-    ---@type TSModule
-    indent = {
-      enable = true,
-    },
-  },
+  config = function()
+    require('nvim-treesitter').setup {
+      install_dir = vim.fn.stdpath 'data' .. '/site',
+    }
+    require('nvim-treesitter')
+      .install({
+        'bash',
+        'lua',
+        'vim',
+        'json',
+        'c',
+        'cpp',
+        'rust',
+        'python',
+        'java',
+        'markdown',
+      })
+      :wait()
+  end,
 }
