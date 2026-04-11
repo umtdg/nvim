@@ -13,6 +13,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Neovim detects jsx/tsx files as javascriptreact/typescriptreact
+-- but treesitter needs jsx/tsx
+vim.filetype.add({
+  extension = {
+    jsx = 'javascriptreact',
+    tsx = 'typescriptreact',
+  }
+})
+
 -- Treesitter Highlight
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
@@ -32,6 +41,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Treesitter Indent
 vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
