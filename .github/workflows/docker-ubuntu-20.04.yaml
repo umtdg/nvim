@@ -1,0 +1,16 @@
+name: Ubuntu 20.04
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  ubuntu:
+    secrets: inherit
+    uses: ./.github/workflows/build.yaml
+    with:
+      dockerfile: ./Dockerfile.20.04
+      image: ubuntu:20.04
+      base_image: umtdg/ubuntu:20.04
