@@ -15,29 +15,57 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Neovim detects jsx/tsx files as javascriptreact/typescriptreact
 -- but treesitter needs jsx/tsx
-vim.filetype.add({
+vim.filetype.add {
   extension = {
     jsx = 'javascriptreact',
     tsx = 'typescriptreact',
-  }
-})
+  },
+}
 
 -- Treesitter Highlight
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
-    -- if parser is available, install
     local ft = vim.bo[ev.buf].filetype
-    if require('nvim-treesitter.parsers')[ft] then
-      require('nvim-treesitter').install(ft)
-    end
 
-    -- try to start treesitter, if fails, fallback to regex
-    -- this is in order to silence errors when trying to start
-    -- treesitter for filetypes like `neo-tree` or `dashboard`.
-    local ok = pcall(vim.treesitter.start)
-    if not ok then
+    local function fallback()
+      print 'Fallback to syntax'
       vim.bo[ev.buf].syntax = 'ON'
     end
+
+    local function start()
+      print 'Start TS'
+      if not vim.api.nvim_buf_is_valid(ev.buf) then
+        return
+      end
+
+      -- try to start treesitter, if fails, fallback to regex
+      -- this is in order to silence errors when trying to start
+      -- treesitter for filetypes like `neo-tree` or `dashboard`.
+      local ok = pcall(vim.treesitter.start, ev.buf)
+      if not ok then
+        fallback()
+      end
+    end
+
+    -- if parser is not available, fallback to syntax
+    if not require('nvim-treesitter.parsers')[ft] then
+      print 'TS parser is not available'
+      fallback()
+      return
+    end
+
+    local ts = require 'nvim-treesitter'
+    if vim.list_contains(ts.get_installed(), ft) then
+      print 'Parser available'
+      start()
+      return
+    end
+
+    -- if parser is available and is installed, start
+    print 'Install TS parser'
+    ts.install(ft):await(function ()
+      start()
+    end)
   end,
 })
 
