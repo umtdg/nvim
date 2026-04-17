@@ -14,13 +14,13 @@ jobs:
         include:
           - name: latest
             dockerfile: ./Dockerfile
-            image: ${{ secrets.DOCKERHUB_USERNAME }}/nvim:latest
+            image: nvim:latest
           - name: Ubuntu 22.04
             dockerfile: ./Dockerfile.22.04
-            image: ${{ secrets.DOCKERHUB_USERNAME }}/nvim:22.04
+            image: nvim:22.04
           - name: Ubuntu 20.04
             dockerfile: ./Dockerfile.20.04
-            image: ${{ secrets.DOCKERHUB_USERNAME }}/nvim:20.04
+            image: nvim:20.04
 
     steps:
       - name: Checkout
@@ -44,4 +44,4 @@ jobs:
           platforms: linux/amd64
           push: true
           file: ${{ matrix.dockerfile }}
-          tags: ${{ matrix.image }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image }}
