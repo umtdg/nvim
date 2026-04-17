@@ -41,7 +41,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
     -- if parser is not available, fallback to syntax
     local ft = vim.bo[ev.buf].filetype
-    local parsers = require('nvim-treesitter.parsers')
+    local parsers = require 'nvim-treesitter.parsers'
     if not parsers[ft] then
       vim.bo[ev.buf].syntax = 'ON'
       return
@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd('FileType', {
     end
 
     -- if parser is available and is installed, start
-    ts.install(ft):await(function ()
+    ts.install(ft):await(function()
       start()
     end)
   end,
