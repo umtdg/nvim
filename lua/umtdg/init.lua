@@ -25,15 +25,7 @@ vim.filetype.add {
 -- Treesitter Highlight
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
-    local ft = vim.bo[ev.buf].filetype
-
-    local function fallback()
-      print 'Fallback to syntax'
-      vim.bo[ev.buf].syntax = 'ON'
-    end
-
     local function start()
-      print 'Start TS'
       if not vim.api.nvim_buf_is_valid(ev.buf) then
         return
       end
@@ -43,26 +35,25 @@ vim.api.nvim_create_autocmd('FileType', {
       -- treesitter for filetypes like `neo-tree` or `dashboard`.
       local ok = pcall(vim.treesitter.start, ev.buf)
       if not ok then
-        fallback()
+        vim.bo[ev.buf].syntax = 'ON'
       end
     end
 
     -- if parser is not available, fallback to syntax
-    if not require('nvim-treesitter.parsers')[ft] then
-      print 'TS parser is not available'
-      fallback()
+    local ft = vim.bo[ev.buf].filetype
+    local parsers = require('nvim-treesitter.parsers')
+    if not parsers[ft] then
+      vim.bo[ev.buf].syntax = 'ON'
       return
     end
 
     local ts = require 'nvim-treesitter'
     if vim.list_contains(ts.get_installed(), ft) then
-      print 'Parser available'
       start()
       return
     end
 
     -- if parser is available and is installed, start
-    print 'Install TS parser'
     ts.install(ft):await(function ()
       start()
     end)
