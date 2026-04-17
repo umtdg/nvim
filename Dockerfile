@@ -1,4 +1,5 @@
-FROM umtdg/ubuntu:24.04
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 SHELL [ "/bin/bash", "-c" ]
 
@@ -8,6 +9,7 @@ WORKDIR /home/$USER
 RUN mkdir -p $HOME/.config
 
 # Install neovim and dependencies
+RUN DEBIAN_FRONTEND=noninteractive sudo apt update
 RUN DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends \
 	make gcc ripgrep unzip git xclip wget
 RUN wget -q --show-progress https://github.com/neovim/neovim/releases/download/v0.12.1/nvim-linux-x86_64.tar.gz

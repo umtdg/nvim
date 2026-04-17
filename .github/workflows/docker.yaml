@@ -14,12 +14,15 @@ jobs:
         include:
           - name: latest
             dockerfile: ./Dockerfile
+            base_image: ubuntu:24.04
             image: nvim:latest
           - name: Ubuntu 22.04
-            dockerfile: ./Dockerfile.22.04
+            dockerfile: ./Dockerfile
+            base_image: ubuntu:22.04
             image: nvim:22.04
           - name: Ubuntu 20.04
-            dockerfile: ./Dockerfile.20.04
+            dockerfile: ./Dockerfile
+            base_image: ubuntu:20.04
             image: nvim:20.04
 
     steps:
@@ -45,3 +48,5 @@ jobs:
           push: true
           file: ${{ matrix.dockerfile }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image }}
+          build-args: |
+            BASE_IMAGE=${{ matrix.base_image }}
