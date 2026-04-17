@@ -118,7 +118,7 @@ return {
           },
         },
       },
-      basedpyright = {
+      pyright = {
         use_mason = false,
       },
       nil_ls = {
