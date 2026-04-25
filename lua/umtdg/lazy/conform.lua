@@ -12,10 +12,10 @@ return {
       cpp = { 'clang-format' },
       java = { 'jdtls' },
       nix = { 'nixfmt' },
-      javascript = { 'prettierd', 'prettier' },
-      typescript = { 'prettierd', 'prettier' },
-      javascriptreact = { 'prettierd', 'prettier' },
-      typescriptreact = { 'prettierd', 'prettier' },
+      javascript = { 'biome', 'prettierd', 'prettier' },
+      typescript = { 'biome', 'prettierd', 'prettier' },
+      javascriptreact = { 'biome', 'prettierd', 'prettier' },
+      typescriptreact = { 'biome', 'prettierd', 'prettier' },
     },
     formatters = {
       black = {

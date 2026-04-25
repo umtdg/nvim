@@ -124,6 +124,15 @@ return {
       nil_ls = {
         use_mason = false,
       },
+      biome = {
+        use_mason = false,
+      },
+      prettier = {
+        use_mason = false,
+      },
+      eslint = {
+        use_mason = false,
+      },
     }
 
     local project_lsp_file = vim.fn.getcwd(0, 0) .. '/.nvim/lsp.lua'
