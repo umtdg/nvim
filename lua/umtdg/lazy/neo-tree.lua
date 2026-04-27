@@ -10,12 +10,22 @@ return {
   keys = {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
+  ---@module 'neo-tree'
+  ---@type neotree.Config
   opts = {
     filesystem = {
       window = {
         mappings = {
           ['\\'] = 'close_window',
         },
+      },
+      filtered_items = {
+        visible = true,
+        hide_gitignored = true,
+        hide_ignored = true,
+        hide_hidden = false,
+        hide_dotfiles = false,
+        never_show = { '.git' },
       },
     },
   },
