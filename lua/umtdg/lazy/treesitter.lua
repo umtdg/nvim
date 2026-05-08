@@ -5,10 +5,13 @@ return {
   branch = 'main',
   build = ':TSUpdate',
   config = function()
-    require('nvim-treesitter').setup {
+    local nvim_ts = require 'nvim-treesitter'
+
+    nvim_ts.setup {
       install_dir = vim.fn.stdpath 'data' .. '/site',
     }
-    require('nvim-treesitter')
+
+    nvim_ts
       .install({
         'bash',
         'lua',

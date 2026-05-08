@@ -62,8 +62,19 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Treesitter Indent
 vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '*', '!nix' },
   callback = function()
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
+
+-- Treesitter Indent -- exclude
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'nix',
+  callback = function()
+    vim.bo.indentexpr = 'GetNixIndent()'
+    vim.bo.autoindent = true
+    vim.bo.smartindent = true
   end,
 })
 
