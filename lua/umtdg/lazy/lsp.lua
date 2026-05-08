@@ -133,6 +133,25 @@ return {
       eslint = {
         use_mason = false,
       },
+      yamlls = {
+        config = {
+          settings = {
+            yaml = {
+              schemaStore = {
+                enable = true,
+                url = 'https://www.schemastore.org/api/json/catalog.json',
+              },
+              schemas = {
+                ['https://json.schemastore.org/github-workflow.json'] = '.github/workflows/*.{yml, yaml}',
+                ['https://json.schemastore.org/github-action.json'] = '.github/actions/**/action.{yml, yaml}',
+              },
+              validate = true,
+              hover = true,
+              completion = true,
+            },
+          },
+        },
+      },
     }
 
     local project_lsp_file = vim.fn.getcwd(0, 0) .. '/.nvim/lsp.lua'
