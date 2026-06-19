@@ -109,6 +109,7 @@ return {
         },
       },
       zls = {
+        use_mason = false,
         config = {
           settings = {
             zls = {
