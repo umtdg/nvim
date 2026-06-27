@@ -7,7 +7,15 @@ return {
     notify_on_error = true,
     formatters_by_ft = {
       lua = { 'stylua' },
-      python = { 'isort', 'black' },
+      python = function(bufnr)
+        -- Use ruff if available, otherwise use isort + black
+        local ruff_info = require('conform').get_formatter_info('ruff_format', bufnr)
+        if ruff_info.available then
+          return { 'ruff_organize_imports', 'ruff_format' }
+        end
+
+        return { 'isort', 'black' }
+      end,
       c = { 'clang-format' },
       cpp = { 'clang-format' },
       java = { 'jdtls' },
