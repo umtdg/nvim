@@ -128,9 +128,6 @@ return {
       biome = {
         use_mason = false,
       },
-      prettier = {
-        use_mason = false,
-      },
       eslint = {
         use_mason = false,
       },
@@ -152,6 +149,9 @@ return {
             },
           },
         },
+      },
+      ruff = {
+        use_mason = false,
       },
     }
 
