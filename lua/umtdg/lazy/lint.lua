@@ -6,7 +6,7 @@ return { -- Linting
     local lint = require 'lint'
     lint.linters_by_ft = {
       markdown = { 'markdownlint' },
-      python = { 'flake8' },
+      python = { 'ruff', 'flake8' },
     }
 
     -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -41,6 +41,36 @@ return { -- Linting
     -- lint.linters_by_ft['terraform'] = nil
     -- lint.linters_by_ft['text'] = nil
 
+    ---@param name string
+    local function resolve_cmd(name)
+      local l = lint.linters[name]
+      if type(l) == 'function' then
+        l = l()
+      end
+
+      local cmd = l and l.cmd or name
+      if type(cmd) == 'function' then
+        cmd = cmd()
+      end
+
+      return cmd
+    end
+
+    ---@param names string[]
+    local function pick_first_available(names)
+      if not names then
+        return {}
+      end
+
+      for _, name in ipairs(names) do
+        if vim.fn.executable(resolve_cmd(name)) == 1 then
+          return { name }
+        end
+      end
+
+      return {}
+    end
+
     -- Create autocommand which carries out the actual linting
     -- on the specified events.
     local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
@@ -50,9 +80,11 @@ return { -- Linting
         -- Only run the linter in buffers that you can modify in order to
         -- avoid superfluous noise, notably within the handy LSP pop-ups that
         -- describe the hovered symbol using Markdown.
-        if vim.bo.modifiable then
-          lint.try_lint()
+        if not vim.bo.modifiable then
+          return
         end
+
+        lint.try_lint(pick_first_available(lint.linters_by_ft[vim.bo.filetype]))
       end,
     })
   end,
