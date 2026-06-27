@@ -152,6 +152,14 @@ return {
       },
       ruff = {
         use_mason = false,
+        config = {
+          on_attach = function(client)
+            client.server_capabilities.hoverProvider = false
+          end,
+        },
+      },
+      ty = {
+        use_mason = false,
       },
     }
 
