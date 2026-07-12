@@ -3,6 +3,7 @@ return {
   'saghen/blink.cmp',
   event = { 'VimEnter' },
   dependencies = {
+    'saghen/blink.lib',
     'folke/lazydev.nvim',
   },
   ---@module 'blink.cmp'
