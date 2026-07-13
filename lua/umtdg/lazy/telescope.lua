@@ -3,16 +3,14 @@ return {
   'nvim-telescope/telescope.nvim',
   event = 'VimEnter',
   dependencies = {
-    'nvim-lua/plenary.nvim',
-
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
     },
-
+    'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-ui-select.nvim',
-
     'nvim-tree/nvim-web-devicons',
+    'rcarriga/nvim-notify',
   },
   config = function()
     local telescope = require 'telescope'
@@ -29,6 +27,7 @@ return {
 
     pcall(telescope.load_extension 'fzf')
     pcall(telescope.load_extension 'ui-select')
+    pcall(telescope.load_extension 'notify')
 
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -51,5 +50,7 @@ return {
         prompt_title = 'Live Grep in Open Files',
       }
     end, { desc = '[S]earch [/] in open files' })
+
+    vim.keymap.set('n', '<leader>sn', telescope.extensions.notify.notify, { desc = '[S]earch [N]otifications' })
   end,
 }
