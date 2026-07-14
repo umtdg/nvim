@@ -10,6 +10,9 @@ return {
       keymaps = {
         ['r'] = { 'keymap.run_action', opts = { action = 'restart' }, desc = 'Restart task' },
       },
+      render = function(task)
+        return require('overseer.render').format_compact(task)
+      end,
     },
   },
   config = function(_, opts)
