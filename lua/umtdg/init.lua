@@ -3,6 +3,7 @@ vim.g.maplocalleader = ' '
 
 require 'umtdg.options'
 require 'umtdg.keymaps'
+require 'umtdg.projects'
 require 'umtdg.lazy-init'
 
 vim.api.nvim_create_autocmd('TextYankPost', {

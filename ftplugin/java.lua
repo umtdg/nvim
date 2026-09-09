@@ -1,3 +1,4 @@
+local project = require('umtdg.projects').get()
 local jdtls = require 'jdtls'
 
 local root_markers = {
@@ -105,5 +106,7 @@ local config = {
     bundles = bundles,
   },
 }
+
+config = vim.tbl_extend('force', config, project.jdtls or {})
 
 jdtls.start_or_attach(config)

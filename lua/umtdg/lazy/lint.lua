@@ -4,10 +4,18 @@ return { -- Linting
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     local lint = require 'lint'
-    lint.linters_by_ft = {
+    local project = require('umtdg.projects').get()
+    local project_lint = project.lint or {}
+
+    lint.linters_by_ft = vim.tbl_extend('force', {
       markdown = { 'markdownlint' },
       python = { 'ruff', 'flake8' },
-    }
+    }, project_lint.linters_by_ft or {})
+
+    -- Assign entries directly to preserve nvim-lint's lazy-loading metatable.
+    for name, config in pairs(project_lint.linters or {}) do
+      lint.linters[name] = config
+    end
 
     -- To allow other plugins to add linters to require('lint').linters_by_ft,
     -- instead set linters_by_ft like this:
