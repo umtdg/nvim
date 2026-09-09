@@ -9,7 +9,7 @@ return {
       position = 'top_right',
       timeout = 2000,
       merge_duplicates = true,
-      render = 'compact',
+      render = 'wrapped-compact',
     }
 
     vim.notify = notify
